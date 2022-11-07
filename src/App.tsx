@@ -1,4 +1,5 @@
 import { Header } from "./components/Header"
+import { Task } from "./components/Task"
 import { TaskList } from "./components/TaskList"
 
 
@@ -11,6 +12,8 @@ function App() {
       <Header />
 
       <TaskList />
+
+      <Task />
     </>
   )
 }

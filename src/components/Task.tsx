@@ -5,8 +5,8 @@ interface TaskProps {
     id: string;
     title: string;
     isCompleted: boolean;
-    onDeleteTask: (task: string) => void; //??
-    handleToggleTaskCompletion: (id: string) => void; //??
+    onDeleteTask: (id: string) => void;
+    handleToggleTaskCompletion: (id: string) => void; 
 }
 
 export function Task({title, id, isCompleted, 

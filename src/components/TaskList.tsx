@@ -1,7 +1,7 @@
 import { PlusCircle } from "phosphor-react"
 import { Task } from "./Task"
 import { EmptyList } from "./EmptyList"
-import { useState } from "react"
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from "react"
 
 import styles from './TaskList.module.css'
 import { v4 as uuidv4 } from "uuid";
@@ -22,7 +22,7 @@ export function TaskList() {
 
     const [newTaskText, setNewTaskText] = useState("")
 
-    function handleCreateNewTask() {
+    function handleCreateNewTask(event: FormEvent) {
         // não deixa atualizar ou processar na pagina
         event.preventDefault()
 
@@ -40,7 +40,7 @@ export function TaskList() {
     }
 
     // onChange => captura valor
-    function handleNewTaskChange() {
+    function handleNewTaskChange(event: ChangeEvent<HTMLInputElement>) {
         setNewTaskText(event.target.value)
     }
 
@@ -48,12 +48,12 @@ export function TaskList() {
     const isNewTaskEmpty = newTaskText.length == 0
     
     // alerta se tentar adicionar tarefa vazia
-    function handleNewTaskInvalid(event: ChangeEvent<HTMLInputElement>) {
+    function handleNewTaskInvalid(event: InvalidEvent<HTMLInputElement>) {
         event.target.setCustomValidity("Impossível adicionar uma tarefa vazia!")
     }
 
     // deletar a tarefa
-    function deleteTask() {
+    function deleteTask(taskToDelete: string) {
         const tasksWithoutDeletedOne = tasks.filter((task) => {
             return task.id != taskToDelete // ??
         })
@@ -61,7 +61,8 @@ export function TaskList() {
         setTasks(tasksWithoutDeletedOne)
     }
 
-    function handleToggleTaskCompletion() {
+    // ??
+    function handleToggleTaskCompletion(id: string) {
         const taskListCompleted = tasks.map((task) => {
             if (task.id === id) {
                 task.isCompleted = !task.isCompleted //??
@@ -71,6 +72,11 @@ export function TaskList() {
 
         setTasks(taskListCompleted)
     }
+
+    //quantidade de tarefa completada
+    const completes = tasks.filter((task) => {
+        return task.isCompleted !== false
+    })
 
 
 
@@ -95,12 +101,12 @@ export function TaskList() {
                     <header className={styles.infos}>
                         <div className={styles.info}>
                             <span className={styles.title}>Tarefas Cridas</span>
-                            <span className={styles.count}>5</span>
+                            <span className={styles.count}>{tasks.length}</span>
                         </div>
 
                         <div className={styles.info}>
                             <span className={styles.title}>Concluídas</span>
-                            <span className={styles.count}>2 de 5</span>
+                            <span className={styles.count}>{completes.length} de {tasks.length}</span>
                         </div>
                     </header>
                 </div>

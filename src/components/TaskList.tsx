@@ -39,10 +39,38 @@ export function TaskList() {
         setNewTaskText("")
     }
 
+    // onChange => captura valor
     function handleNewTaskChange() {
         setNewTaskText(event.target.value)
     }
 
+    // verificar se esta vazio enão deixa o botão ativado
+    const isNewTaskEmpty = newTaskText.length == 0
+    
+    // alerta se tentar adicionar tarefa vazia
+    function handleNewTaskInvalid(event: ChangeEvent<HTMLInputElement>) {
+        event.target.setCustomValidity("Impossível adicionar uma tarefa vazia!")
+    }
+
+    // deletar a tarefa
+    function deleteTask() {
+        const tasksWithoutDeletedOne = tasks.filter((task) => {
+            return task.id != taskToDelete // ??
+        })
+
+        setTasks(tasksWithoutDeletedOne)
+    }
+
+    function handleToggleTaskCompletion() {
+        const taskListCompleted = tasks.map((task) => {
+            if (task.id === id) {
+                task.isCompleted = !task.isCompleted //??
+            }
+            return task
+        })
+
+        setTasks(taskListCompleted)
+    }
 
 
 
@@ -53,10 +81,12 @@ export function TaskList() {
                     <input 
                         value={newTaskText} 
                         onChange={handleNewTaskChange}
+                        onInvalid={handleNewTaskInvalid}
                         type="text" 
                         placeholder='Adicione uma nova tarefa' 
+                        required
                     />
-                    <button type="submit">
+                    <button type="submit" disabled={isNewTaskEmpty}>
                         Criar <PlusCircle size={16} />
                     </button>
                 </form>
@@ -78,7 +108,15 @@ export function TaskList() {
                 {tasks.length === 0 && <EmptyList />}
 
                 {tasks.map((task) => {
-                    return (<Task />)
+                    return (<Task 
+                                handleToggleTaskCompletion={handleToggleTaskCompletion}
+                                isCompleted={task.isCompleted}
+                                key={task.id}
+                                id={task.id}
+                                title={task.title}
+                                onDeleteTask={deleteTask}
+                            />
+                        )
                 })}
             </div>
         </main>

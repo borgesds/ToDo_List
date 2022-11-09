@@ -55,17 +55,17 @@ export function TaskList() {
     // deletar a tarefa
     function deleteTask(taskToDelete: string) {
         const tasksWithoutDeletedOne = tasks.filter((task) => {
-            return task.id != taskToDelete // ??
+            return task.id != taskToDelete 
         })
 
         setTasks(tasksWithoutDeletedOne)
     }
 
-    // ??
+    // checking
     function handleToggleTaskCompletion(id: string) {
         const taskListCompleted = tasks.map((task) => {
             if (task.id === id) {
-                task.isCompleted = !task.isCompleted //??
+                task.isCompleted = !task.isCompleted 
             }
             return task
         })

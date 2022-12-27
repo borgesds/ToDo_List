@@ -6,7 +6,7 @@ Feito em React e Typescript foi um ótimo exercício fixar mais useState e como 
 
 <h3> Ferramentas </h3>
 
- - React, Typescript, Javascript, HTML, CSS, Nodejs, Axios
+ - React, Typescript, Javascript, HTML, CSS
  
  - Estou trabalhando em meus projetos com Typescript, estou em aprendizado constante então algumas tipagens vai receber any como padrão, mas os próximos  projetos tenho certeza que estarei mais evoluído.
 
